@@ -44,13 +44,13 @@ public class Etudiant implements Serializable {
     
     @Override
     public String toString() {
-        return "Etudiant{" +
+        return "Etudiant  {" +
                 "nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", mail='" + mail + '\'' +
-                ", dateNaissance=" + dateNaissance +
-                '}';
+                ", date Naissance=" + dateNaissance +
+                   '}';
     }
 
     // Vous pouvez également ajouter des setters si nécessaire

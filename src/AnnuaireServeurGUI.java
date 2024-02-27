@@ -108,6 +108,10 @@ public class AnnuaireServeurGUI extends JFrame {
                 case "lister":
                     listerEtudiants(output);
                     break;
+                case "listerServices":
+                    listerServices(output);
+                    break;
+
                 default:
                     output.writeObject("Action non reconnue");
                     output.flush();
@@ -200,6 +204,18 @@ public class AnnuaireServeurGUI extends JFrame {
             output.flush();
         }
     }
+    
+    private void listerServices(ObjectOutputStream output) throws IOException {
+        List<String> services = Arrays.asList(
+            "Inserer - Insérer les propriétés d’un nouvel étudiant",
+            "Retrouver - Retrouver les propriétés d’un étudiant recherché à travers son nom et son prénom",
+            "Lister - Lister l’ensemble des étudiants gérés par l’annuaire"
+            // Ajoutez d'autres services ici si nécessaire
+        );
+        output.writeObject(services);
+        output.flush();
+    }
+
 
     public boolean isRunning() {
         return serverSocket != null && !serverSocket.isClosed();

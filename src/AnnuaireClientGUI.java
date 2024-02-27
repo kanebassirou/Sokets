@@ -10,6 +10,7 @@ import java.util.List;
 public class AnnuaireClientGUI extends JFrame {
     private JTextField nomField, prenomField, telephoneField, mailField, dateNaissanceField;
     private JButton insererBtn, retrouverBtn, listerBtn;
+    private JButton listerServicesBtn;
     private JTextArea resultatArea;
 
     private static final String SERVER_ADDRESS = "localhost";
@@ -18,7 +19,7 @@ public class AnnuaireClientGUI extends JFrame {
     public AnnuaireClientGUI() {
         super("Annuaire Etudiants - Client");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 400);
+        setSize(606, 504);
         initComponents();
         setVisible(true);
     }
@@ -53,12 +54,16 @@ public class AnnuaireClientGUI extends JFrame {
         panel.add(retrouverBtn);
         panel.add(listerBtn);
 
-        add(panel, BorderLayout.NORTH);
-        add(new JScrollPane(resultatArea), BorderLayout.CENTER);
+        getContentPane().add(panel, BorderLayout.NORTH);
+        getContentPane().add(new JScrollPane(resultatArea), BorderLayout.CENTER);
 
         insererBtn.addActionListener(e -> insererEtudiant());
         retrouverBtn.addActionListener(e -> retrouverEtudiant());
         listerBtn.addActionListener(e -> listerEtudiants());
+        listerServicesBtn = new JButton("Lister Services");
+        panel.add(listerServicesBtn);
+
+        listerServicesBtn.addActionListener(e -> listerServices());
     }
 
     private void insererEtudiant() {
@@ -131,6 +136,31 @@ public class AnnuaireClientGUI extends JFrame {
             resultatArea.setText("Erreur lors du listage des étudiants: " + ex.getMessage());
         }
     }
+    private void listerServices() {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+
+            out.writeObject("listerServices");
+            out.flush();
+
+            Object response = in.readObject();
+            if (response instanceof List) {
+                List<String> services = (List<String>) response;
+                StringBuilder sb = new StringBuilder("Services disponibles :\n");
+                for (String service : services) {
+                    sb.append(service).append("\n");
+                }
+                resultatArea.setText(sb.toString());
+            } else {
+                resultatArea.setText("Erreur lors de la récupération des services.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            resultatArea.setText("Erreur lors de la demande de listage des services: " + ex.getMessage());
+        }
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new AnnuaireClientGUI());

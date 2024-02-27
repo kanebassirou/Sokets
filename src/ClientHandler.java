@@ -27,6 +27,7 @@ public class ClientHandler extends Thread {
                         // Ajouter un étudiant
                         writer.println("Ajouter un étudiant...");
                         break;
+                        
                     // Ajoutez d'autres cas selon les fonctionnalités requises
                     default:
                         writer.println("Commande inconnue");
