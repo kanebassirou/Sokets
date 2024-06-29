@@ -39,15 +39,15 @@ public class AnnuaireClientGUI extends JFrame {
         resultatArea = new JTextArea(10, 30);
         resultatArea.setEditable(false);
 
-        panel.add(new JLabel("Nom:"));
+        panel.add(new JLabel("Nom :"));
         panel.add(nomField);
-        panel.add(new JLabel("Prénom:"));
+        panel.add(new JLabel("Prénom :"));
         panel.add(prenomField);
-        panel.add(new JLabel("Téléphone:"));
+        panel.add(new JLabel("Téléphone :"));
         panel.add(telephoneField);
-        panel.add(new JLabel("Mail:"));
+        panel.add(new JLabel("Mail :"));
         panel.add(mailField);
-        panel.add(new JLabel("Date Naissance (YYYY-MM-DD):"));
+        panel.add(new JLabel("Date Naissance (YYYY-MM-DD) :"));
         panel.add(dateNaissanceField);
 
         panel.add(insererBtn);
